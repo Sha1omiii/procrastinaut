@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+</head>
+<body>
+    <h1>Welcome to ProcrastinAut</h1>
+    <nav>
+        <p><a href="{% url 'profile' %}">Profile</a></p>
+        <p><a href="{% url 'signup' %}">Sign Up</a></p>
+    </nav>
+    <h1>My Projects</h1>
+    <ul>
+        {% for project in projects %}
+            <li><a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_project' %}">Create A New Project</a>
+</body>
+</html>
