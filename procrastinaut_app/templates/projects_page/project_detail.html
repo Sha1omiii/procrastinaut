@@ -8,9 +8,29 @@
 <body>
     <h1>{{ project.name }}</h1>
     <p>{{ project.description }}</p>
+    <a href="{% url 'update_project' project.pk %}">Edit Project</a>
+    <div>
+        <h2>Tasks</h2>
+        <ul>
+            {% for todo_task in project.todo_tasks.all %}
+            <li>
+                {{ todo_task.title }} - {% if todo_task.is_completed %}Completed{% else %}Not Completed{% endif %}
+                
+                <button><a href="{% url 'update_todo_task' project.pk todo_task.pk %}">Edit Task</a></button>
+                <button><a href="{% url 'delete_todo_task' project.pk todo_task.pk %}">Delete Task</a></button>
+            </li>
+            {% endfor %}
+            <a href="{% url 'create_todo_task' project.pk %}">Add Task</a>
+            
+    </div>
+    
+        
 
-    <h2>Tasks</h2>
-
+    </ul>
+    <form action="{% url 'delete_project' project.pk %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit">Delete Project</button>
+    </form>
     <a href="{% url 'list_project' %}">Back to Projects</a>
 </body>
 </html>
