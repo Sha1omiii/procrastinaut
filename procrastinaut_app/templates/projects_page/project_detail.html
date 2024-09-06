@@ -27,10 +27,59 @@
         
 
     </ul>
-    <form action="{% url 'delete_project' project.pk %}" method="post" style="display: inline;">
+    <form action="{% url 'delete_project' project.pk %}" method="post" onsubmit="return confirm('Are you sure you want to delete this project?');" style="display: inline;">
         {% csrf_token %}
         <button type="submit">Delete Project</button>
     </form>
     <a href="{% url 'list_project' %}">Back to Projects</a>
+
+    <!-- adding my websocket (which i defined in consumer.py in main_app) for the chat system to be visible in the web -->
+    <div>
+        <h3>Chat Here</h3>
+        <div id="chat-field"></div>
+        <input id="chat-input" type="text" size="100">
+        <button id="chat-submit">Send</button>
+        
+        <script>
+            // websockets run on wss:// 
+            const chatSocket = new WebSocket(
+                `${window.location.protocol === 'https:' ? 'wss://' : 'ws://'}${window.location.host}/ws/projects/{{ project.pk }}/`
+            );
+
+            chatSocket.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                document.querySelector('#chat-field').innerHTML += ('<br>' + data.message);
+            };
+
+            chatSocket.onclose = function(e) {
+                console.error('Unexpectedly, the chat socket has closed:', e.code, e.reason);
+            };
+
+            document.querySelector('#chat-input').focus();
+            document.querySelector('#chat-input').onkeyup = function(e){
+                if (e.keyCode === 13) {
+                    document.querySelector('#chat-submit').click();
+                }
+            };
+
+            document.querySelector('#chat-submit').onclick = function (e) {
+                const messageInputDom = document.querySelector('#chat-input');
+                const message = messageInputDom.value;
+                if (chatSocket.readyState === WebSocket.OPEN) {
+                    chatSocket.send(JSON.stringify({
+                        'message': message
+                    }));
+                    messageInputDom.value = '';
+                } else {
+                    console.error('Websocket is not open, so you cant send messages right now.');
+                }
+                
+                
+            }
+        </script>
+
+    </div>
+    
+
 </body>
 </html>
