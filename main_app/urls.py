@@ -15,4 +15,8 @@ urlpatterns = [
     path('projects/<int:project_pk>/tasks/new/', views.create_todo_task, name='create_todo_task'),
     path('projects/<int:project_pk>/tasks/<int:todo_task_pk>/edit/', views.update_todo_task, name='update_todo_task'),
     path('projects/<int:project_pk>/tasks/<int:todo_task_pk>/delete/', views.delete_todo_task, name='delete_todo_task'),
+    path('projects/<int:project_pk>/tasks/<int:todo_task_pk>/vote/', views.todo_task_vote, name='todo_task_vote'),
+    path('projects/<int:project_pk>/tasks/<int:todo_task_pk>/suggest/', views.todo_task_suggest, name='todo_task_suggest'),
+    path('projects/<int:project_id>/invite/', views.invite_your_team, name='invite_your_team'),
+    path('projects/invite/<str:token>/', views.accept_invite, name='accept_invite'),
 ]
