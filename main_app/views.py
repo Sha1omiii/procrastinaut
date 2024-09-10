@@ -9,6 +9,7 @@ from .forms import ProjectForm, Todo_TaskForm, CustomUserCreationForm
 from django.utils.crypto import get_random_string
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
+from django.http import JsonResponse
 
 # Create your views here.
 def signup(request):
@@ -56,6 +57,9 @@ def create_project(request):
 @login_required
 def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk, owner=request.user)
+    # currently working on a sidbar functionality by combining detail and list pages 
+    # if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+    #     return render(request, 'projects_page/partial_detail.html', {'project': project})
     return render(request, 'projects_page/project_detail.html', {'project': project})
 
 # updating an exisiting project file

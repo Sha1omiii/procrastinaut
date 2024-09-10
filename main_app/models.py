@@ -15,7 +15,7 @@ class Project(models.Model):
 class Todo_Task(models.Model):
     project = models.ForeignKey(Project, related_name='todo_tasks', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    notes = models.TextField(blank=True)
     is_completed = models.BooleanField(default=False)
     reminder = models.DateTimeField(null=True, blank=True)
     due_date = models.DateTimeField(null=True, blank=True)

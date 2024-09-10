@@ -64,6 +64,32 @@ h2 {
     animation: fadeInDown 1.6s ease-out;
 }
 
+.instructions {
+    background-color: #1F2833;
+    padding: 20px;
+    border-radius: 8px;
+    color: #C5C6C7;
+    margin-top: 30px;
+    animation: fadeInDown 2s ease-out;
+}
+
+.instructions h3 {
+    color: #66FCF1;
+    margin-bottom: 10px;
+    animation: fadeInDown 2.1s ease-out;
+}
+
+.instructions ol {
+    margin-left: 20px;
+    list-style-type: decimal;
+    animation: fadeInDown 2.3s ease-out;
+}
+
+.instructions ol li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
 @keyframes fadeInDown {
     from {
         opacity: 0;

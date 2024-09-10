@@ -11,7 +11,7 @@ class ProjectForm(forms.ModelForm):
 class Todo_TaskForm(forms.ModelForm):
     class Meta:
         model = Todo_Task
-        fields = ['title', 'description', 'is_completed', 'reminder', 'due_date']
+        fields = ['title', 'notes', 'is_completed', 'reminder', 'due_date']
         widgets = {
             'reminder': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'due_date': forms.DateTimeInput(attrs={'type': 'datetime-local'})
