@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm #might not need this
 from django.contrib.auth import login
 from django.urls import reverse
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from .models import Project, Todo_Task, InviteToProject
 from .forms import ProjectForm, Todo_TaskForm, CustomUserCreationForm
@@ -21,6 +22,7 @@ def signup(request):
         form = CustomUserCreationForm();
     
     return render(request, 'registration/signup.html', {'form': form})
+
 
 def home(request):
     return render(request, 'projects_page/home.html')
